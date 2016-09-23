@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片展示</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			#box{
+				width:600px;
+				height:400px;
+				margin:50px auto;
+				border:1px red solid;
+				overflow:hidden;
+				position:relative;
+			}
+			.pic{
+				width:100%;
+				height:1200px;
+				position:absolute;
+				top:0;
+				left:0;
+			}
+			.pic p{
+				font-size:50px;
+				line-height:100px;
+				text-align:center;
+				color:red;
+			}
+			.btn{
+				position:absolute;
+				left:0;
+				height: 200px;
+				width:100%;
+			}
+			#picup{
+				position:absolute;
+				top:0;	
+				left:0;
+				height: 200px;
+				width:100%;
+			}
+			#picdown{
+				position:absolute;
+				bottom:0;
+				left:0;
+				height: 200px;
+				width:100%;
+			}
+			.active{
+				background: yellow !important;
+			    height: 200px;
+				width:100%;
+				opacity: 0.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="pic" id="pic">
+			    	<p>11</p>
+			    	<p>222</p>
+			    	<p>333</p>
+			    	<p>444</p>
+			    	<p>555</p>
+			    	<p>666</p>
+			    	<p>777</p>
+			    	<p>888</p>
+			    	<p>999</p>
+			    	<p>1000</p>
+			    	<p>3339</p>
+			    	<p>22000</p>
+			</div>
+			<div class="btn" id="picup"></div>
+			<div class="btn" id="picdown"></div>
+		</div>
+		<script>
+			window.onload=function(){
+				var num=0;//top移动的距离
+				var timer=null//定时器
+				//id函数
+				function $(id){return document.getElementById(id)}
+				var boxh=$("box").offsetHeight;//大盒子的高度
+				var pich=$("pic").offsetHeight;//图片的高度
+				var h=pich-boxh;
+				console.log(h);
+				
+				//添加函数
+				function show(id){
+					id.className="active";
+				}
+				//移出函数
+				function hide(id){
+					id.className="";
+				}
+				//向上的移出事件
+				$("picup").onmouseover=function(){
+					clearInterval(timer);
+					show($("picup"));
+					timer=setInterval(moveup,10);
+				}
+				$("picup").onmouseout=function(){
+					hide($("picup"));
+				}
+				$("picdown").onmouseover=function(){
+					clearInterval(timer);
+					show($("picdown"));
+					timer=setInterval(movedown,10);
+				}
+				$("picdown").onmouseout=function(){
+					hide($("picdown"));
+				}
+
+				$("box").onmouseout=function(){
+					clearInterval(timer);
+					hide($("picdown"));
+					hide($("picup"));
+				}
+				//向上移动
+				function moveup(){
+					num-=3;
+					if(num>=-h){
+						$("pic").style.top=num+"px";
+					}else{
+						clearInterval(timer);
+					}
+				}
+				//向下移动
+				function movedown(){
+					num++;
+					if(num<=0){
+						$("pic").style.top=num+"px";
+					}else{
+						clearInterval(timer);
+					}
+				}
+				
+				
+			}
+		</script>
+	</body>
+</html>

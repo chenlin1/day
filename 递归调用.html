@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>定时器：递归调用</title>
+		<style>
+			#box{width:200px;height:auto;brder:1px #ccc solid;margin:0 auto;}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			window.onload=function(){
+				var box=document.getElementById("box");
+				var count=5;//倒计时
+				//定时器
+				setTimeout(goindex,1000);
+				function goindex(){
+					count--;
+					box.innerHTML="<a href='http://www.hackrangers.com/chenlin/index.html'>本页面将在"+count+"秒跳转到首页</a>"
+					if(count<=0){
+						
+						window.location.href="http://www.hackrangers.com/chenlin/index.html";
+					}else{
+//						setTimeout(goindex,1000)//递归调用
+						setTimeout(arguments.callee,1000)//递归调用
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
